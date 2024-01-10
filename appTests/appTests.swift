@@ -1,14 +1,14 @@
 //
-//  mobile_boilerplate_ios_swiftTests.swift
-//  mobile-boilerplate-ios-swiftTests
+//  appTests.swift
+//  appTests
 //
-//  Created by Anton Fenske on 2021-06-01.
+//  Created by Anton Fenske on 1/10/24.
 //
 
 import XCTest
-@testable import mobile_boilerplate_ios_swift
+@testable import app
 
-class mobile_boilerplate_ios_swiftTests: XCTestCase {
+final class appTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,6 +21,9 @@ class mobile_boilerplate_ios_swiftTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // Any test you write for XCTest can be annotated as throws and async.
+        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
+        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
 
     func testPerformanceExample() throws {
