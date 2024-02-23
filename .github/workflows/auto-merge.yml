@@ -6,17 +6,23 @@ on:
 
 jobs:
   test-for-build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        swift: ["5.2", "5.3"]
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
+
     steps:
-      - uses: swift-actions/setup-swift@v1
-        with:
-          swift-version: ${{ matrix.swift }}
       - uses: actions/checkout@v4
-      - name: Build
-        run: swift build
+  
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: check Xcode version
+        run: /usr/bin/xcodebuild -version
+  
+      - name: Install Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies
+  
+      - name: Build App
+        run: |
+          xcodebuild build -project app.xcodeproj -scheme app -sdk iphonesimulator -configuration Debug ONLY_ACTIVE_ARCH=YES
 
   
