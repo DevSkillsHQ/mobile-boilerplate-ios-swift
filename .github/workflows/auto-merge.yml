@@ -6,19 +6,17 @@ on:
 
 jobs:
   test-for-build:
-    runs-on: macos-latest
-
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        swift: ["5.2", "5.3"]
+    runs-on: ${{ matrix.os }}
     steps:
+      - uses: swift-actions/setup-swift@65540b95f51493d65f5e59e97dcef9629ddf11bf
+        with:
+          swift-version: ${{ matrix.swift }}
       - uses: actions/checkout@v4
-  
-      - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode.app
-  
-      - name: Install Dependencies
-        run: |
-          xcodebuild -resolvePackageDependencies
-  
-      - name: Build App
-        run: |
-          xcodebuild build -project app.xcodeproj -scheme app -sdk iphonesimulator -configuration Debug
+      - name: Build
+        run: swift build
+
   
