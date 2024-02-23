@@ -2,6 +2,7 @@ name: Test if the project can be built
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   test-for-build:
