@@ -20,5 +20,5 @@ jobs:
   
       - name: Build App
         run: |
-          xcodebuild build -project YourProjectName.xcodeproj -scheme app -sdk iphonesimulator -configuration Debug
+          xcodebuild build -project app.xcodeproj -scheme app -sdk iphonesimulator -configuration Debug
   
