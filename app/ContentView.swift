@@ -1,16 +1,13 @@
-//
-//  ContentView.swift
-//  app
-//
-//  Created by Anton Fenske on 1/10/24.
-//
-
 import SwiftUI
-import SwiftData
+import CoreData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Environment(\.managedObjectContext) private var managedObjectContext
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        animation: .default)
+    private var items: FetchedResults<Item>
+    
 
     var body: some View {
         NavigationSplitView {
@@ -41,21 +38,27 @@ struct ContentView: View {
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+            let newItem = Item(context: managedObjectContext)
+            newItem.timestamp = Date()
+            newItem.id = UUID() // Ensure your Item model has an 'id' attribute
+
+            do {
+                try managedObjectContext.save()
+            } catch {
+                // Handle the error appropriately.
+            }
         }
     }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+            offsets.map { items[$0] }.forEach(managedObjectContext.delete)
+            
+            do {
+                try managedObjectContext.save()
+            } catch {
+                // Handle the error appropriately.
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }

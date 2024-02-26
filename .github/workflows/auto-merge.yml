@@ -23,6 +23,6 @@ jobs:
   
       - name: Build App
         run: |
-          xcodebuild build -project app.xcodeproj -scheme app -sdk iphonesimulator -configuration Debug ONLY_ACTIVE_ARCH=YES
+          xcodebuild build -project app.xcodeproj -scheme app -sdk iphonesimulator -configuration Debug
 
   

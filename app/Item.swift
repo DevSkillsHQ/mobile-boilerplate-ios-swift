@@ -1,18 +1,10 @@
-//
-//  Item.swift
-//  app
-//
-//  Created by Anton Fenske on 1/10/24.
-//
-
 import Foundation
-import SwiftData
+import CoreData
 
-@Model
-final class Item {
-    var timestamp: Date
-    
-    init(timestamp: Date) {
-        self.timestamp = timestamp
-    }
+@objc(Item)
+public class Item: NSManagedObject {
+    @NSManaged public var id: UUID?
+    @NSManaged public var timestamp: Date
 }
+
+extension Item: Identifiable {}
