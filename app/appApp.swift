@@ -13,7 +13,6 @@ struct appApp: App {
     }
 }
 
-// Core Data Stack
 struct PersistenceController {
     static let shared = PersistenceController()
 

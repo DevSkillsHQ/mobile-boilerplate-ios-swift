@@ -40,7 +40,7 @@ struct ContentView: View {
         withAnimation {
             let newItem = Item(context: managedObjectContext)
             newItem.timestamp = Date()
-            newItem.id = UUID() // Ensure your Item model has an 'id' attribute
+            newItem.id = UUID()
 
             do {
                 try managedObjectContext.save()
