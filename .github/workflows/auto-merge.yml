@@ -1,0 +1,28 @@
+name: Test if the project can be built
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  test-for-build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+  
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: check Xcode version
+        run: /usr/bin/xcodebuild -version
+  
+      - name: Install Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies
+  
+      - name: Build App
+        run: |
+          xcodebuild build -project app.xcodeproj -scheme app -sdk iphonesimulator -configuration Debug
+
+  
